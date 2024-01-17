@@ -38,7 +38,7 @@ class Galerie {
         return obrazyAutora.sort((a, b) => a.cena - b.cena);
     }
 
-    vsechnyAutořiAOdworky() {
+    vsichniAutoři() {
         const autoři = {};
 
         this.obrazy.forEach(obraz => {
@@ -56,6 +56,7 @@ class Galerie {
 }
 
 const galerie = new Galerie();
+nactiStavGalerie();
 
 document.getElementById('galerieForm').addEventListener('submit', function (event) {
     event.preventDefault();
@@ -72,16 +73,36 @@ function pridejObraz() {
 
     const obraz = new Obraz(jmeno, prijmeni, dat_nar, nazev, cena, rok_vznik);
     galerie.pridejObraz(obraz);
+    ulozStavGalerie();
     zobrazVysledky();
-}
+    }
 
 function zobrazVysledky() {
     document.getElementById('celkovaCena').textContent = galerie.celkovaCena();
     document.getElementById('nejdrahsiObrazy').textContent = JSON.stringify(galerie.nejdrahsiObrazy());
     document.getElementById('obrazyOdAutora').textContent = JSON.stringify(galerie.obrazOdAutora("Joe", "Pajdal"));
-    document.getElementById('vsechnyAutořiAOdworky').textContent = JSON.stringify(galerie.vsechnyAutořiAOdworky());
+    document.getElementById('vsichniAutoři').textContent = JSON.stringify(galerie.vsichniAutoři());
 }
 
+function ulozStavGalerie() {
+    localStorage.setItem('galerieStav', JSON.stringify(galerie));
+}
+
+function nactiStavGalerie() {
+    const ulozenyStav = localStorage.getItem('galerieStav');
+    if (ulozenyStav) {
+        const stavObjekt = JSON.parse(ulozenyStav);
+        galerie.obrazy = stavObjekt.obrazy || [];
+    }
+}
+
+function removeStavGalerie() {
+    localStorage.removeItem('galerieStav');
+}
+
+function clearStavGalerie() {
+    localStorage.clear();
+}
 
 /*
 const obraz1 = new Obraz("Joe", "Pajdal",new Date(2005,2,5), "Zomboi", 500, 2020);
@@ -97,5 +118,5 @@ galerie.pridejObraz(obraz4);
 console.log("Celková cena:", galerie.celkovaCena());
 console.log("Nejdražší obrazy:", galerie.nejdrahsiObrazy());
 console.log("Obraz od autora:", galerie.obrazOdAutora("Joe", "Pajdal"));
-console.log("Všichni autoři a jejich díla:", galerie.vsechnyAutořiAOdworky());
+console.log("Všichni autoři a jejich díla:", galerie.vsichniAutoři());
 */

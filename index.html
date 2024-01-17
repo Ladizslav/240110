@@ -21,7 +21,16 @@
         <input type="number" id="rok_vznik" required>
         <button type="submit">Přidat obraz</button>
     </form>
-    
+
+    <button onclick="removeStavGalerie()">Odstranit stav galerie</button>
+<button onclick="clearStavGalerie()">Vymazat všechny údaje</button>
+    <div id="vysledky">
+        <h2>Výsledky:</h2>
+        <p>Celková cena: <span id="celkovaCena"></span></p>
+        <p>Nejdražší obrazy: <span id="nejdrahsiObrazy"></span></p>
+        <p>Obrazy od autora: <span id="obrazyOdAutora"></span></p>
+        <p>Všichni autoři a jejich díla: <span id="vsichniAutoři"></span></p>
+    </div>
     
 </body>
 <script src="./script.js"></script> 
