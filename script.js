@@ -57,6 +57,33 @@ class Galerie {
 
 const galerie = new Galerie();
 
+document.getElementById('galerieForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+    pridejObraz();
+});
+
+function pridejObraz() {
+    const jmeno = document.getElementById('jmeno').value;
+    const prijmeni = document.getElementById('prijmeni').value;
+    const dat_nar = new Date(document.getElementById('dat_nar').value);
+    const nazev = document.getElementById('nazev').value;
+    const cena = parseInt(document.getElementById('cena').value);
+    const rok_vznik = parseInt(document.getElementById('rok_vznik').value);
+
+    const obraz = new Obraz(jmeno, prijmeni, dat_nar, nazev, cena, rok_vznik);
+    galerie.pridejObraz(obraz);
+    zobrazVysledky();
+}
+
+function zobrazVysledky() {
+    document.getElementById('celkovaCena').textContent = galerie.celkovaCena();
+    document.getElementById('nejdrahsiObrazy').textContent = JSON.stringify(galerie.nejdrahsiObrazy());
+    document.getElementById('obrazyOdAutora').textContent = JSON.stringify(galerie.obrazOdAutora("Joe", "Pajdal"));
+    document.getElementById('vsechnyAutořiAOdworky').textContent = JSON.stringify(galerie.vsechnyAutořiAOdworky());
+}
+
+
+/*
 const obraz1 = new Obraz("Joe", "Pajdal",new Date(2005,2,5), "Zomboi", 500, 2020);
 const obraz2 = new Obraz("Ajdam", "Headcik",new Date(2005,4,5), "Terkov", 700, 2018);
 const obraz3 = new Obraz("Leo", "Vinci",new Date(2005,4,5), "Mon Lis", 1000, 2019);
@@ -71,3 +98,4 @@ console.log("Celková cena:", galerie.celkovaCena());
 console.log("Nejdražší obrazy:", galerie.nejdrahsiObrazy());
 console.log("Obraz od autora:", galerie.obrazOdAutora("Joe", "Pajdal"));
 console.log("Všichni autoři a jejich díla:", galerie.vsechnyAutořiAOdworky());
+*/
